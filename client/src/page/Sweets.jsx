@@ -8,9 +8,30 @@ const Sweets = () => {
   const [sweets, setSweets] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [cartVersion, setCartVersion] = useState(0);
+  const [search, setSearch] = useState("");
+
   const navigate = useNavigate();
 
   /* ------------------------------ FETCH SWEETS ------------------------------ */
+
+  const handleSearch = async (value) => {
+    setSearch(value);
+
+    try {
+      if (value.trim() === "") {
+        const res = await api.get("/api/sweets");
+        setSweets(res.data);
+      } else {
+        const res = await api.get(
+          `/api/sweets/search?keyword=${value}`
+        );
+        setSweets(res.data);
+      }
+    } catch {
+      toast.error("Search failed");
+    }
+  };
+
 
   useEffect(() => {
     const fetchSweets = async () => {
@@ -87,6 +108,16 @@ const Sweets = () => {
     <div className="min-h-screen bg-orange-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
+        <div className="mb-6">
+          <input
+            type="text"
+            placeholder="Search sweets by name or category..."
+            value={search}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="w-full md:w-1/3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+          />
+        </div>
+
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold text-orange-500">
             Available Sweets
