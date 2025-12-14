@@ -7,22 +7,34 @@ import { toast } from "react-toastify";
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleAdminClick = async () => {
+  const handleRoleClick = async (target) => {
+  // target = "admin" or "user" based on which button was clicked
   try {
     const res = await api.get("/api/auth/me", {
       withCredentials: true,
     });
 
-    if (res.data.role !== "Admin") {
-      toast.error("Admin access only");
-      return;
-    }
+    const role = res.data.role;
 
-    navigate("/admin");
-  } catch {
-    navigate("/admin/login");
+    if (target === "admin") {
+      if (role !== "Admin") {
+        toast.error("Admin access only");
+        return;
+      }
+      navigate("/admin");
+    } else if (target === "user") {
+      if (role !== "User") {
+        toast.error("User access only");
+        return;
+      }
+      navigate("/user");
+    }
+  } catch (err) {
+    // redirect to login if not logged in
+    navigate(`/${target}/login`);
   }
 };
+
 
 
   return (
@@ -43,14 +55,14 @@ const Home = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
-            onClick={handleAdminClick}
+            onClick={() => handleRoleClick("admin")}
             className="bg-orange-500 text-white px-8 py-3 rounded-xl font-semibold text-lg hover:bg-orange-600 transition shadow-md"
           >
             Admin
           </button>
 
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => handleRoleClick("user")}
             className="border border-orange-500 text-orange-500 px-8 py-3 rounded-xl font-semibold text-lg hover:bg-orange-50 transition"
           >
             User
