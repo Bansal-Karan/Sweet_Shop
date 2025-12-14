@@ -18,7 +18,7 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "sweet-shop-5llz.vercel.app",
+    origin: "https://sweet-shop-5llz.vercel.app",
     credentials: true,
   })
 );
