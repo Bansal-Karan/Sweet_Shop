@@ -1,8 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { api } from "../utils/axios";
+import { toast } from "react-toastify";
+
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const handleAdminClick = async () => {
+  try {
+    const res = await api.get("/api/auth/me", {
+      withCredentials: true,
+    });
+
+    if (res.data.role !== "Admin") {
+      toast.error("Admin access only");
+      return;
+    }
+
+    navigate("/admin");
+  } catch {
+    navigate("/admin/login");
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-linear-to-br from-orange-50 to-orange-100 flex items-center justify-center px-6">
@@ -22,7 +43,7 @@ const Home = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
-            onClick={() => navigate("/admin/login")}
+            onClick={handleAdminClick}
             className="bg-orange-500 text-white px-8 py-3 rounded-xl font-semibold text-lg hover:bg-orange-600 transition shadow-md"
           >
             Admin
