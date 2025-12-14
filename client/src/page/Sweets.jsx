@@ -103,6 +103,11 @@ const Sweets = () => {
   };
 
   /* -------------------------------- RENDER --------------------------------- */
+  const filteredSweets = sweets.filter((sweet) =>
+  sweet.name.toLowerCase().includes(search.toLowerCase()) ||
+  sweet.category.toLowerCase().includes(search.toLowerCase())
+);
+
 
   return (
     <div className="min-h-screen bg-orange-50 p-6">
@@ -136,7 +141,7 @@ const Sweets = () => {
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {sweets.map((sweet) => (
+          {filteredSweets.map((sweet) => (
             <div
               key={sweet._id}
               className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden"
