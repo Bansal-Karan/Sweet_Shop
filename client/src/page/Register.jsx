@@ -12,11 +12,12 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/api/auth/register", {
+      const user = await api.post("/api/auth/register", {
         username: name,
         email,
         password,
       });
+      console.log(user);
       toast.success("Registration successful");
       navigate("/login");
     } catch (err) {

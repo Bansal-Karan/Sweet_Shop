@@ -12,7 +12,7 @@ const cookieOptions = {
 export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-
+    console.log(req.body);
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await UserModel.create({

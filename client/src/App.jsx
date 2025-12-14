@@ -21,6 +21,7 @@ const App = () => {
   const fetchUser = async () => {
     try {
       const res = await api.get("/api/auth/me");
+      console.log(res)
       setUser(res.data);
     } catch {
       setUser(null);
