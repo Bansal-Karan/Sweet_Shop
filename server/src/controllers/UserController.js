@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 const cookieOptions = {
   httpOnly: true,
   secure: true,
-  sameSite: "strict",
+  sameSite: "None",
   maxAge: 24 * 60 * 60 * 1000,
   path: "/",
 };
