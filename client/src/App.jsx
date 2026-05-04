@@ -75,7 +75,7 @@ const App = () => {
           path="/admin"
           element={
             <ProtectedRoute user={user} allowedRoles={["Admin"]}>
-              <AdminDashboard />
+              <AdminDashboard setUser={setUser} />
             </ProtectedRoute>
           }
         />
@@ -85,7 +85,7 @@ const App = () => {
           path="/sweets"
           element={
             <ProtectedRoute user={user} allowedRoles={["Customer"]}>
-              <Sweets />
+              <Sweets setUser={setUser} />
             </ProtectedRoute>
           }
         />
@@ -94,7 +94,7 @@ const App = () => {
           path="/cart"
           element={
             <ProtectedRoute user={user} allowedRoles={["Customer"]}>
-              <Cart />
+              <Cart setUser={setUser} />
             </ProtectedRoute>
           }
         />

@@ -18,7 +18,7 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://sweet-shop-5llz.vercel.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -26,9 +26,9 @@ app.use(
 app.use("/api/auth", UserRoutes);
 app.use("/api/sweets", SweetRoutes);
 
-app.get("/", (req, res) => {
-  res.send("This is home route");
-});
+// app.get("/", (req, res) => {
+//   res.send("This is home route");
+// });
 
 const port = process.env.PORT;
 

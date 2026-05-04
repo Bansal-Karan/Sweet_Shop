@@ -4,11 +4,12 @@ import jwt from "jsonwebtoken";
 
 const cookieOptions = {
   httpOnly: true,
-  secure: true,
-  sameSite: "None",
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
   maxAge: 24 * 60 * 60 * 1000,
   path: "/",
 };
+
 export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -128,4 +129,14 @@ export const loginAdmin = async (req, res) => {
 export const getCurrentUser = async (req, res) => {
   const user = req.user;
   res.json(user);
+};
+
+export const logout = async (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    path: "/",
+  });
+  res.status(200).json({ message: "Logged out" });
 };

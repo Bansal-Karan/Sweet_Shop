@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 const ProtectedRoute = ({ user, allowedRoles, children }) => {
   // not logged in
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   // role not allowed

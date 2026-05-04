@@ -8,39 +8,19 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleRoleClick = async (target) => {
-  // target = "admin" or "user" based on which button was clicked
-  try {
-    const res = await api.get("/api/auth/me", {
-      withCredentials: true,
-    });
-
-    const role = res.data.role;
-
     if (target === "admin") {
-      if (role !== "Admin") {
-        toast.error("Admin access only");
-        return;
-      }
-      navigate("/admin");
-    } else if (target === "user") {
-      if (role !== "User") {
-        toast.error("User access only");
-        return;
-      }
-      navigate("/user");
+      navigate("/admin/login");
+    } else {
+      navigate("/login");
     }
-  } catch (err) {
-    // redirect to login if not logged in
-    navigate(`/${target}/login`);
-  }
-};
+  };
 
 
 
   return (
     <div className="min-h-screen bg-linear-to-br from-orange-50 to-orange-100 flex items-center justify-center px-6">
       <div className="max-w-4xl w-full bg-white rounded-2xl shadow-xl p-10 text-center">
-        
+
         {/* Title */}
         <h1 className="text-4xl md:text-5xl font-extrabold text-orange-500 mb-4">
           🍬 Welcome to Sweet Shop
